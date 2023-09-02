@@ -11,7 +11,7 @@ interface paramsProps {
 const githubAxios = axios.create({
   baseURL,
   headers: {
-    Authorization: `Bearer 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`,
+    Authorization: `Bearer ${process.env.REACT_APP_GIT_TOKEN}`,
   },
 });
 
