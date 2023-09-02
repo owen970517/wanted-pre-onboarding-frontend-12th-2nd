@@ -5,7 +5,7 @@ export const IssuesContainer = styled.div`
   margin : 0 auto;
 `
 export const IssueList = styled.ul`
-    list-style: none;
+  list-style: none;
 `
 
 export const ScrollObserver = styled.div`
@@ -15,5 +15,6 @@ export const ScrollObserver = styled.div`
 `
 
 export const SpinnerImg = styled.img`
-  height : 50%;
+  width : 20%;
+  
 `

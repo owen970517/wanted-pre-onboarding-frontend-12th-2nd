@@ -14,6 +14,7 @@ export const HeaderContainer = styled.div`
 `;
 export const HeaderTitle = styled.h1`
   font-size: 30px;
+  color : white;
 `;
 
 export const Padding = styled.div`
