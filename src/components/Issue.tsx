@@ -8,7 +8,7 @@ const Issue = ({issue}:{issue:IssuesProps}) => {
   return (
     <S.IssueContainer key={issue?.number}>
       <S.IssueInfo>
-        {!id ? <Link to={`/issues/${issue?.number}`}>{`#${issue?.number} ${issue?.title}`}</Link> :
+        {!id ? <S.IssueLink to={`/issues/${issue?.number}`}>{`#${issue?.number} ${issue?.title}`}</S.IssueLink> :
           <p>{`#${issue?.number} ${issue?.title}`}</p>}
         <p>{issue?.created_at.slice(0,10)} by {issue?.user?.login}</p>
       </S.IssueInfo>
