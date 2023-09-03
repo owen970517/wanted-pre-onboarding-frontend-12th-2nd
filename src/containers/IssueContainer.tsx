@@ -17,17 +17,17 @@ const IssueContainer = () => {
     },[getIssueDetail, id])
     
     if (isError) {
-      return <div>에러가 발생했습니다</div>;
+      return <div>존재하지 않는 이슈 입니다.</div>;
     }
   return (
     <>
         {isLoading ? <SkeletonDetail/> :
             <>
                 <S.WriterInfo>
-                    <S.Avatar src={issueDetail?.user.avatar_url} alt='img'/>
-                    <Issue issue={issueDetail!} />
+                    <S.Avatar src={issueDetail.user?.avatar_url} alt='img'/>
+                    <Issue issue={issueDetail} />
                 </S.WriterInfo>
-                <Markdown content={issueDetail?.body!} />
+                <Markdown content={issueDetail.body} />
             </>
         }
     </>
