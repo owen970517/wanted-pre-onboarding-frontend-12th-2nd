@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import * as S from '../styles/Issue.styled';
 import { IssuesProps } from '../types/issues';
+import { changeDateFormat } from '../utils/DateFormat';
 
 const Issue = ({issue}:{issue:IssuesProps}) => {
   const {id} = useParams();
@@ -10,7 +11,7 @@ const Issue = ({issue}:{issue:IssuesProps}) => {
       <S.IssueInfo>
         {!id ? <S.IssueLink to={`/issues/${issue?.number}`}>{`#${issue?.number} ${issue?.title}`}</S.IssueLink> :
           <p>{`#${issue?.number} ${issue?.title}`}</p>}
-        <p>{issue?.created_at.slice(0,10)} by {issue?.user?.login}</p>
+        <p>{changeDateFormat(issue?.created_at)} by {issue?.user?.login}</p>
       </S.IssueInfo>
       <p>
         코멘트 : {issue?.comments}
