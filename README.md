@@ -46,5 +46,8 @@
 > - 본문에서는 마크다운 문법을 제공합니다.
 
 
-## 추가로 개선할 것 
+## 추가로 개선한 것 
 - 팀원들과 협업을 통해 찾은 Best Practice를 추가할 예정입니다.
+- axios interceptor를 사용
+- react-mardown 대신 react-markdown-preview 사용
+- date 변환 시 slice 대신 format 함수를 사용하여 구현
