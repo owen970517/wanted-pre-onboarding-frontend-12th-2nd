@@ -1,6 +1,5 @@
-import { useState, createContext, ReactNode, useCallback, useEffect } from "react";
+import { useState, createContext, ReactNode, useCallback } from "react";
 import { IssueProps, IssuesProps } from "../types/issues";
-import { detailProps } from "../types/IssueDetail";
 import { getIssue, getIssues } from "../apis/github";
 
 interface AssignmentContextProps {
