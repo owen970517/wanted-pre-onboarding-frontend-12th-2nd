@@ -1,5 +1,5 @@
-import { useState, createContext, ReactNode, useCallback } from "react";
-import { IssuesProps } from "../types/issues";
+import { useState, createContext, ReactNode, useCallback, useEffect } from "react";
+import { IssueProps, IssuesProps } from "../types/issues";
 import { detailProps } from "../types/IssueDetail";
 import { getIssue, getIssues } from "../apis/github";
 
@@ -9,28 +9,28 @@ interface AssignmentContextProps {
   getNextPageList: () => void;
   issueList: IssuesProps[];
   getIssueDetail: (issueNum: string) => void;
-  issueDetail: detailProps | undefined;
+  issueDetail: IssueProps ;
   pageNum: number;
   isNoMore: boolean;
   isError: boolean; 
 }
 export const AssignmentContext = createContext<AssignmentContextProps>({
   isLoading: false,
-  getListByPageNumber: (pageNumber: number) => Promise.resolve(),
+  getListByPageNumber: () => Promise.resolve(),
   getNextPageList: () => {},
   issueList: [],
-  getIssueDetail: (issueNum: string) => {},
-  issueDetail: undefined,
+  getIssueDetail: () => {},
+  issueDetail: {} as IssueProps,
   pageNum: 0,
   isNoMore: false,
   isError: false,
 });
 
-const ContextProvider = ({ children }: { children: ReactNode }) => {
+const ContextProvider:React.FC<{children:ReactNode}> = ({ children }) => {
   const [pageNum, setPageNum] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [issueList, setIssueList] = useState<IssuesProps[]>([]);
-  const [issueDetail, setIssueDetail] = useState<detailProps>();
+  const [issueDetail, setIssueDetail] = useState<IssueProps>({} as IssueProps);
   const [isNoMore, setIsNoMore] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -47,13 +47,6 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const getNextPageList = () => {
-    if (!isNoMore) {
-      setPageNum(prev => prev+1);
-      getListByPageNumber(pageNum+1);
-    }
-  };
-
   const getListByPageNumber = useCallback(async (pageNumber: number) => {
     try {
       setIsLoading(true);
@@ -61,7 +54,12 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
       if (response.data.length === 0) {
         setIsNoMore(true);
       }
-      setIssueList((prev) => [...prev, ...response.data]);
+      if (pageNumber !== 1) {
+        setIssueList(prev => [...prev, ...response.data]);
+      } else {
+        setIssueList(response.data)
+      }
+ 
     } catch (e) {
       console.error(e);
       setIsError(true);
@@ -69,6 +67,12 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
       setIsLoading(false);
     }
   }, []);
+
+  const getNextPageList = useCallback(() => {
+    const nextPage = pageNum + 1;
+    getListByPageNumber(nextPage);
+    setPageNum(nextPage);
+  }, [pageNum, getListByPageNumber]);
 
   const value = {
     isLoading,
