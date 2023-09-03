@@ -51,3 +51,4 @@
 - axios interceptor를 사용
 - react-mardown 대신 react-markdown-preview 사용
 - date 변환 시 slice 대신 format 함수를 사용하여 구현
+- 첫 렌더링 및 상세 페이지 불러올 때 스켈레톤 UI 추가
